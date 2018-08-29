@@ -1,5 +1,3 @@
 <resources>
     <string name="app_name">MySwipes</string>
-    <string name="swipeBtnText">Swipe!</string>
-    <string name="swipes_left">Swipes Left:</string>
 </resources>
