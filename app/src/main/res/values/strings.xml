@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">MySwipes</string>
+
+    <!-- possible quarters -->
+    <string name="quarterText_fall_18">Fall 18</string>
+    <string name="quarterText_winter_18">Winter 18</string>
+    <string name="quarterText_spring_18">Spring 18</string>
+
+    <!-- possible meal plans -->
+    <string name="mealplan_10r">10R</string>
+    <string name="mealplan_14r">14R</string>
+    <string name="mealplan_19r">19R</string>
+    <string name="mealplan_10p">10P</string>
+    <string name="mealplan_14p">14P</string>
+    <string name="mealplan_19p">19P</string>
+
+    <!-- section titles -->
+    <string name="title_swipes_used">Swipes Used</string>
+    <string name="title_swipes_left">Swipes Left</string>
+    <string name="title_pace">Pace</string>
+    <string name="button_text">Swipe!</string>
+
 </resources>
