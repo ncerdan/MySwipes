@@ -75,20 +75,22 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/swipesUsedText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Swipes Used"
                 android:gravity="center_horizontal|top"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:text="Swipes Used"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/swipesUsed"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="12"
                 android:gravity="center_horizontal|top"
-                android:textSize="24sp"
-                android:textColor="@color/black"/>
+                android:text="12"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,20 +100,23 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/swipesLeftText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Swipes Left"
                 android:gravity="center_horizontal|top"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:text="Swipes Left"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/swipesLeft"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="65"
+                android:layout_marginTop="-28dp"
                 android:gravity="center_horizontal|top"
-                android:textSize="128sp"
-                android:textColor="@color/black"/>
+                android:text="65"
+                android:textColor="@color/black"
+                android:textSize="128sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -121,20 +126,22 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/paceText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Pace"
                 android:gravity="center_horizontal|top"
-                android:textSize="16sp"
-                android:textColor="@color/black"/>
+                android:text="Pace"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
 
             <TextView
+                android:id="@+id/pace"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="1"
                 android:gravity="center_horizontal|top"
-                android:textSize="24sp"
-                android:textColor="@color/black"/>
+                android:text="1"
+                android:textColor="@color/black"
+                android:textSize="24sp" />
         </LinearLayout>
 
     </LinearLayout>
@@ -144,12 +151,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"
-        android:background="@color/colorPrimary"
+        android:background="@xml/circular_button"
         android:text="Swipe!"
+        android:textSize="20dp"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/settingsBtn"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/ic_settings_grey_24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
 
