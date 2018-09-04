@@ -6,6 +6,19 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="260dp"
+        android:background="@color/colorPrimary">
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="260dp"
+        android:background="@drawable/royce">
+    </android.support.constraint.ConstraintLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="220dp"
@@ -28,20 +41,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="bottom|center_horizontal"
+                android:gravity="bottom|end"
                 android:text="@string/quarterText_fall_18"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
 
             <TextView
                 android:id="@+id/dateText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="top|center_horizontal"
+                android:gravity="top|end"
                 android:text="Sept. 22"
-                android:textColor="@color/black"
-                android:textSize="24sp" />
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:layout_marginRight="5dp"
+                android:layout_marginEnd="5dp" />
         </LinearLayout>
 
         <TextView
@@ -49,18 +66,24 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:gravity="center"
+            android:gravity="center|start"
             android:text="@string/mealplan_14p"
-            android:textColor="@color/black"
-            android:textSize="48sp" />
+            android:textColor="@color/white"
+            android:textSize="48sp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="170dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
         android:orientation="horizontal"
+        android:background="@xml/rounded_corner"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -167,7 +190,7 @@
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
-        android:background="@drawable/ic_settings_grey_24dp"
+        android:background="@drawable/ic_settings_blue_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
