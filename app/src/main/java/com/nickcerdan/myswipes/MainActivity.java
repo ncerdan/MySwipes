@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     int swipes;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,11 +63,10 @@ public class MainActivity extends AppCompatActivity {
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                                
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
             }
         });
-
-
     }
 
     //handles when user taps swipe button
