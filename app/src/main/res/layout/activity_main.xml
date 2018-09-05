@@ -40,38 +40,38 @@
                 android:id="@+id/quarterText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="bottom|end"
-                android:text="@string/quarterText_fall_18"
+                android:text="--quarter--"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp" />
+                android:textSize="24sp" />
 
             <TextView
                 android:id="@+id/dateText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="top|end"
-                android:text="Sept. 22"
+                android:text="--DATE--"
                 android:textColor="@color/white"
-                android:textSize="24sp"
-                android:layout_marginRight="5dp"
-                android:layout_marginEnd="5dp" />
+                android:textSize="24sp" />
         </LinearLayout>
 
         <TextView
             android:id="@+id/mealPlanText"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:gravity="center|start"
-            android:text="@string/mealplan_14p"
+            android:text="MP"
             android:textColor="@color/white"
-            android:textSize="48sp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginStart="5dp" />
+            android:textSize="48sp" />
     </LinearLayout>
 
     <LinearLayout
