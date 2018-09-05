@@ -139,9 +139,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-28dp"
                 android:gravity="center_horizontal|top"
-                android:text="65"
+                android:text="158"
                 android:textColor="@color/black"
-                android:textSize="128sp" />
+                android:textSize="100sp" />
         </LinearLayout>
 
         <LinearLayout

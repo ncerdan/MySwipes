@@ -17,14 +17,23 @@ public class MainActivity extends AppCompatActivity {
     TextView dateText;
     TextView quarterText;
     TextView mealPlanText;
+    TextView swipesLeftText;
     Button swipeButton;
     Button settingsButton;
-    int swipes;
+    SharedPreferences prefs;
+    int swipesLeftNum;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //sets swipes left
+        swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
+        swipesLeftNum = prefs.getInt("swipesLeft", 158);
+        swipesLeftText.setText(Integer.toString(swipesLeftNum));
 
         //initialize buttons and set click listeners
         swipeButton = (Button) findViewById(R.id.swipeBtn);
@@ -48,9 +57,22 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //check if user changed swipes left
+        swipesLeftNum = prefs.getInt("swipesLeft", 158);
+        String settingsValue = prefs.getString("setting_swipesLeft", "");
+
+        if (settingsValue != "" && swipesLeftNum != Integer.valueOf(settingsValue)) {
+            swipesLeftNum = Integer.valueOf(settingsValue);
+            prefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
+
+            swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
+            swipesLeftNum = prefs.getInt("swipesLeft", 158);
+            swipesLeftText.setText(Integer.toString(swipesLeftNum));
+        }
 
         //meal plan
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String mealPlanString = prefs.getString("setting_mealPlan", "");
 
         mealPlanText = (TextView) findViewById(R.id.mealPlanText);
@@ -86,6 +108,11 @@ public class MainActivity extends AppCompatActivity {
 
     //handles when user taps swipe button
     private void swipe() {
+        swipesLeftNum--;
+        prefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
+        prefs.edit().putString("setting_swipesLeft", Integer.toString(swipesLeftNum)).apply();
 
+        swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
+        swipesLeftText.setText(Integer.toString(swipesLeftNum));
     }
 }

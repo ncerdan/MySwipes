@@ -8,5 +8,11 @@
         android:entryValues="@array/mealPlans"
         android:defaultValue="14p">
     </ListPreference>
+    <EditTextPreference
+        android:key="setting_swipesLeft"
+        android:title="Swipes Left"
+        android:summary="Manually change your swipes left count"
+        android:defaultValue="158">
+    </EditTextPreference>
 
 </PreferenceScreen>
