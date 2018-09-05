@@ -3,11 +3,11 @@
 
     <!-- arrays for settings -->
     <string-array name="mealPlans">
-        <item>11r</item>
-        <item>14r</item>
-        <item>14p</item>
-        <item>19r</item>
-        <item>19p</item>
+        <item>11P</item>
+        <item>14R</item>
+        <item>14P</item>
+        <item>19R</item>
+        <item>19P</item>
     </string-array>
 
 </resources>

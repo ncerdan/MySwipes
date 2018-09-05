@@ -1,6 +1,8 @@
 package com.nickcerdan.myswipes;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView dateText;
     TextView quarterText;
+    TextView mealPlanText;
     Button swipeButton;
     Button settingsButton;
     int swipes;
@@ -22,6 +25,36 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //initialize buttons and set click listeners
+        swipeButton = (Button) findViewById(R.id.swipeBtn);
+        swipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipe();
+            }
+        });
+
+        settingsButton = (Button) findViewById(R.id.settingsBtn);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //meal plan
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String mealPlanString = prefs.getString("setting_mealPlan", "");
+
+        mealPlanText = (TextView) findViewById(R.id.mealPlanText);
+        mealPlanText.setText(mealPlanString);
 
         //set date
         Date currentDate = Calendar.getInstance().getTime();
@@ -49,24 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         quarterText = (TextView) findViewById(R.id.quarterText);
         quarterText.setText(quarterString);
-
-        //initialize buttons and set click listeners
-        swipeButton = (Button) findViewById(R.id.swipeBtn);
-        swipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipe();
-            }
-        });
-
-        settingsButton = (Button) findViewById(R.id.settingsBtn);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(i);
-            }
-        });
     }
 
     //handles when user taps swipe button
