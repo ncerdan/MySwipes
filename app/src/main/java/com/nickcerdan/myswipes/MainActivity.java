@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
             swipesLeftText.setText(Integer.toString(swipesLeftNum));
         }
 
-        //meal plan
+        //set meal plan
         String mealPlanString = prefs.getString("setting_mealPlan", "");
 
         mealPlanText = (TextView) findViewById(R.id.mealPlanText);
