@@ -17,10 +17,11 @@ public class MainActivity extends AppCompatActivity {
     TextView dateText;
     TextView quarterText;
     TextView mealPlanText;
+    String mealPlanString;
     TextView swipesLeftText;
     Button swipeButton;
     Button settingsButton;
-    SharedPreferences prefs;
+    SharedPreferences sharedPrefs;
     int swipesLeftNum;
 
     @Override
@@ -28,15 +29,21 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //sets swipes left
-        swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
-        swipesLeftNum = prefs.getInt("swipesLeft", 158);
+        //set swipesLeft
+        swipesLeftNum = sharedPrefs.getInt("swipesLeft", 158);
+        swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
 
-        //initialize buttons and set click listeners
-        swipeButton = (Button) findViewById(R.id.swipeBtn);
+        //set mealPlan
+        mealPlanString = sharedPrefs.getString("mealPlan", "x.x");
+        mealPlanText = findViewById(R.id.mealPlanText);
+        mealPlanText.setText(mealPlanString);
+
+
+        //initialize swipe button and listener
+        swipeButton = findViewById(R.id.swipeBtn);
         swipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -44,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        settingsButton = (Button) findViewById(R.id.settingsBtn);
+        //initialize settings button and listener
+        settingsButton = findViewById(R.id.settingsBtn);
         settingsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,25 +65,24 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //check if user changed swipes left
-        swipesLeftNum = prefs.getInt("swipesLeft", 158);
-        String settingsValue = prefs.getString("setting_swipesLeft", "");
+        //check if user changed swipesLeft
+        swipesLeftNum = sharedPrefs.getInt("swipesLeft", 158);
+        String settingsValue = sharedPrefs.getString("setting_swipesLeft", "");
 
-        if (settingsValue != "" && swipesLeftNum != Integer.valueOf(settingsValue)) {
+        if (!settingsValue.equals("") && swipesLeftNum != Integer.valueOf(settingsValue)) {
             swipesLeftNum = Integer.valueOf(settingsValue);
-            prefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
+            sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
 
-            swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
-            swipesLeftNum = prefs.getInt("swipesLeft", 158);
+            swipesLeftText = findViewById(R.id.swipesLeft);
             swipesLeftText.setText(Integer.toString(swipesLeftNum));
         }
 
-        //meal plan
-        String mealPlanString = prefs.getString("setting_mealPlan", "");
+        //set mealPlan in case user changed in settings
+        mealPlanString = sharedPrefs.getString("mealPlan", "14P");
 
-        mealPlanText = (TextView) findViewById(R.id.mealPlanText);
+        mealPlanText = findViewById(R.id.mealPlanText);
         mealPlanText.setText(mealPlanString);
 
         //set date
@@ -83,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d");
         String dateString = formatter.format(currentDate);
 
-        dateText = (TextView) findViewById(R.id.dateText);
+        dateText = findViewById(R.id.dateText);
         dateText.setText(dateString);
 
         //set quarter
@@ -102,17 +109,17 @@ public class MainActivity extends AppCompatActivity {
             quarterString = "ERROR";
         }
 
-        quarterText = (TextView) findViewById(R.id.quarterText);
+        quarterText = findViewById(R.id.quarterText);
         quarterText.setText(quarterString);
     }
 
     //handles when user taps swipe button
     private void swipe() {
         swipesLeftNum--;
-        prefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
-        prefs.edit().putString("setting_swipesLeft", Integer.toString(swipesLeftNum)).apply();
+        sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
+        sharedPrefs.edit().putString("setting_swipesLeft", Integer.toString(swipesLeftNum)).apply();
 
-        swipesLeftText = (TextView) findViewById(R.id.swipesLeft);
+        swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
     }
 }

@@ -1,0 +1,6 @@
+-use mealPlan_values:
+    -change "set mealPlan sections"
+    -use values to calculate swipes used
+        -total  for P plans
+        -weekly for R plans
+

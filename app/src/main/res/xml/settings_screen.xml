@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        android:key="setting_mealPlan"
+        android:key="mealPlan"
         android:title="Meal Plan"
         android:summary="Choose your meal plan"
         android:entries="@array/mealPlans"
         android:entryValues="@array/mealPlans"
-        android:defaultValue="14p">
+        android:defaultValue="14P">
     </ListPreference>
     <EditTextPreference
         android:key="setting_swipesLeft"
