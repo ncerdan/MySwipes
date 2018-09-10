@@ -73,10 +73,35 @@ public class MainActivity extends AppCompatActivity {
             swipesLeftText.setText(Integer.toString(swipesLeftNum));
         }
 
-        //set mealPlan in case user changed in settings
-        mealPlanString = sharedPrefs.getString("mealPlan", "14P");
+        //set swipes used
+        int swipesUsed;
+
+        //set mealPlan. here in case user changed in settings
+        mealPlanString = sharedPrefs.getString("mealPlan", "158");
+        String s;
+        switch (mealPlanString) {
+            case "11":
+                s = "11R";
+                break;
+            case "14":
+                s = "14R";
+                break;
+            case "19":
+                s = "19R";
+                break;
+            case "158":
+                s = "14P";
+                break;
+            case "214":
+                s = "19P";
+                break;
+            default:
+                s = "X.X";
+                break;
+        }
+
         mealPlanText = findViewById(R.id.mealPlanText);
-        mealPlanText.setText(mealPlanString);
+        mealPlanText.setText(s);
 
         //set date
         Date currentDate = Calendar.getInstance().getTime();
