@@ -81,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
 
         //set mealPlan in case user changed in settings
         mealPlanString = sharedPrefs.getString("mealPlan", "14P");
-
         mealPlanText = findViewById(R.id.mealPlanText);
         mealPlanText.setText(mealPlanString);
 
