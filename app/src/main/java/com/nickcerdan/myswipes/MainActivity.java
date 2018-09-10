@@ -36,12 +36,6 @@ public class MainActivity extends AppCompatActivity {
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
 
-        //set mealPlan
-        mealPlanString = sharedPrefs.getString("mealPlan", "x.x");
-        mealPlanText = findViewById(R.id.mealPlanText);
-        mealPlanText.setText(mealPlanString);
-
-
         //initialize swipe button and listener
         swipeButton = findViewById(R.id.swipeBtn);
         swipeButton.setOnClickListener(new View.OnClickListener() {
