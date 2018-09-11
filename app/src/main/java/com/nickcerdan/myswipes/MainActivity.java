@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -119,6 +121,11 @@ public class MainActivity extends AppCompatActivity {
 
     //handles when user taps swipe button
     private void swipe() {
+        if (swipesLeftNum <= 0) {
+            Toast.makeText(this, "You have no more swipes!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         swipesLeftNum--;
         sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
         sharedPrefs.edit().putString("setting_swipesLeft", Integer.toString(swipesLeftNum)).apply();

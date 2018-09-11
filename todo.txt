@@ -1,3 +1,2 @@
 -check settings swipesLeft input:
-    -can't be negative
-    -must be less than max mealPlan value
+    -change from toast to popup if failed

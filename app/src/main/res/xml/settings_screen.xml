@@ -12,7 +12,8 @@
         android:key="setting_swipesLeft"
         android:title="Swipes Left"
         android:summary="Manually change your swipes left count"
-        android:defaultValue="158">
+        android:defaultValue="158"
+        android:inputType="number">
     </EditTextPreference>
 
 </PreferenceScreen>
