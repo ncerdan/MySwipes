@@ -1,6 +1,3 @@
--use mealPlan_values:?
-    -change "set mealPlan sections"
-    -use values to calculate swipes used
-        -total  for P plans
-        -weekly for R plans
-
+-check settings swipesLeft input:
+    -can't be negative
+    -must be less than max mealPlan value

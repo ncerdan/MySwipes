@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
 
     TextView dateText;
     TextView quarterText;
+    TextView swipesUsedText;
     TextView mealPlanText;
     String mealPlanString;
     TextView swipesLeftText;
@@ -32,76 +33,16 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         //set swipesLeft
-        swipesLeftNum = sharedPrefs.getInt("swipesLeft", 158);
+        swipesLeftNum = sharedPrefs.getInt("swipesLeft", -999);
+            //if first time opening app
+        if (swipesLeftNum == -999) {
+            sharedPrefs.edit().putInt("swipesLeft", 158).apply();
+            sharedPrefs.edit().putString("setting_swipesLeft", "158").apply();
+            sharedPrefs.edit().putString("mealPlan", "14P").apply();
+        }
+        swipesLeftNum = sharedPrefs.getInt("swipesLeft", 0);
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
-
-        //initialize swipe button and listener
-        swipeButton = findViewById(R.id.swipeBtn);
-        swipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipe();
-            }
-        });
-
-        //initialize settings button and listener
-        settingsButton = findViewById(R.id.settingsBtn);
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
-                startActivity(i);
-            }
-        });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-
-        //check if user changed swipesLeft
-        swipesLeftNum = sharedPrefs.getInt("swipesLeft", 158);
-        String settingsValue = sharedPrefs.getString("setting_swipesLeft", "");
-
-        if (!settingsValue.equals("") && swipesLeftNum != Integer.valueOf(settingsValue)) {
-            swipesLeftNum = Integer.valueOf(settingsValue);
-            sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
-
-            swipesLeftText = findViewById(R.id.swipesLeft);
-            swipesLeftText.setText(Integer.toString(swipesLeftNum));
-        }
-
-        //set swipes used
-        int swipesUsed;
-
-        //set mealPlan. here in case user changed in settings
-        mealPlanString = sharedPrefs.getString("mealPlan", "158");
-        String s;
-        switch (mealPlanString) {
-            case "11":
-                s = "11R";
-                break;
-            case "14":
-                s = "14R";
-                break;
-            case "19":
-                s = "19R";
-                break;
-            case "158":
-                s = "14P";
-                break;
-            case "214":
-                s = "19P";
-                break;
-            default:
-                s = "X.X";
-                break;
-        }
-
-        mealPlanText = findViewById(R.id.mealPlanText);
-        mealPlanText.setText(s);
 
         //set date
         Date currentDate = Calendar.getInstance().getTime();
@@ -129,6 +70,51 @@ public class MainActivity extends AppCompatActivity {
 
         quarterText = findViewById(R.id.quarterText);
         quarterText.setText(quarterString);
+
+        //initialize swipe button and listener
+        swipeButton = findViewById(R.id.swipeBtn);
+        swipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                swipe();
+            }
+        });
+
+        //initialize settings button and listener
+        settingsButton = findViewById(R.id.settingsBtn);
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, SettingsActivity.class);
+                startActivity(i);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //check if user changed swipesLeft in settings
+        swipesLeftNum = sharedPrefs.getInt("swipesLeft", -999);
+        String swipesSettingsValue = sharedPrefs.getString("setting_swipesLeft", "");
+
+        if (swipesLeftNum != Integer.valueOf(swipesSettingsValue)) {
+            swipesLeftNum = Integer.valueOf(swipesSettingsValue);
+            sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
+
+            swipesLeftText = findViewById(R.id.swipesLeft);
+            swipesLeftText.setText(Integer.toString(swipesLeftNum));
+        }
+
+        //set mealPlan. here in case user changed in settings
+        mealPlanString = sharedPrefs.getString("mealPlan", "");
+        mealPlanText = findViewById(R.id.mealPlanText);
+        mealPlanText.setText(mealPlanString);
+
+        //set swipesUsed. here in case user changes swipesLeft in settings
+        setSwipesUsed();
     }
 
     //handles when user taps swipe button
@@ -139,5 +125,35 @@ public class MainActivity extends AppCompatActivity {
 
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
+        setSwipesUsed();
+    }
+
+    //handles when it should calculate how many swipes have been used
+    private void setSwipesUsed() {
+        int mealPlanNum;
+        String mealPlanString = sharedPrefs.getString("mealPlan", "");
+        switch (mealPlanString) {
+            case "11R":
+                mealPlanNum = 11;
+                break;
+            case "14R":
+                mealPlanNum = 14;
+                break;
+            case "19R":
+                mealPlanNum = 19;
+                break;
+            case "14P":
+                mealPlanNum = 158;
+                break;
+            case "19P":
+                mealPlanNum = 214;
+                break;
+            default:
+                mealPlanNum = -999;
+                break;
+        }
+        int swipesUsedNum = mealPlanNum - swipesLeftNum;
+        swipesUsedText = findViewById(R.id.swipesUsed);
+        swipesUsedText.setText(Integer.toString(swipesUsedNum));
     }
 }

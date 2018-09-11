@@ -9,12 +9,5 @@
         <item>14P</item>
         <item>19P</item>
     </string-array>
-    <integer-array name="mealPlan_values">
-        <item>11</item>
-        <item>14</item>
-        <item>19</item>
-        <item>158</item>
-        <item>214</item>
-    </integer-array>
 
 </resources>

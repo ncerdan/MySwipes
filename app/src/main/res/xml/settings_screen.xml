@@ -5,7 +5,7 @@
         android:title="Meal Plan"
         android:summary="Choose your meal plan"
         android:entries="@array/mealPlans"
-        android:entryValues="@array/mealPlan_values"
+        android:entryValues="@array/mealPlans"
         android:defaultValue="14P">
     </ListPreference>
     <EditTextPreference
