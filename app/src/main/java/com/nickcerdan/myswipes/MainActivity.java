@@ -13,19 +13,29 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
+    //widgets
     TextView dateText;
     TextView quarterText;
     TextView swipesUsedText;
     TextView mealPlanText;
-    String mealPlanString;
     TextView swipesLeftText;
+    TextView paceText;
     Button swipeButton;
     Button settingsButton;
+
+    //vars
+    String mealPlanString;
     SharedPreferences sharedPrefs;
     int swipesLeftNum;
+
+    //constants
+    final Date endOfFall18 = new Date(118, Calendar.DECEMBER, 14);
+    final Date endOfWinter19 = new Date(119, Calendar.MARCH, 22);
+    final Date endOfSpring19 = new Date(119, Calendar.JUNE, 14);
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -55,10 +65,6 @@ public class MainActivity extends AppCompatActivity {
         dateText.setText(dateString);
 
         //set quarter
-        Date endOfFall18 = new Date(2018, 12, 14);
-        Date endOfWinter19 = new Date(2019, 3, 22);
-        Date endOfSpring19 = new Date(2019, 6, 14);
-
         String quarterString;
         if (currentDate.compareTo(endOfFall18) <= 0) {
             quarterString = "Fall 18";
@@ -117,6 +123,85 @@ public class MainActivity extends AppCompatActivity {
 
         //set swipesUsed. here in case user changes swipesLeft in settings
         setSwipesUsed();
+
+        //set pace. here in case user changes swipesLeft in settings
+        setPace();
+    }
+
+    //calculates then sets pace
+    private void setPace() {
+        int paceNum = calculatePace();
+        paceText = findViewById(R.id.pace);
+        paceText.setText(Integer.toString(paceNum));
+    }
+
+    //calculates pace value
+    private int calculatePace() {
+        /*
+            -insert check for whether P or R plan and change depending
+            -ask Axel about R plan
+         */
+
+        /*calculate dates needed in calculation
+            -P plans endOfCycle is end of quarter
+            -R plans endOfCycle is end of week
+         */
+        Date currentDate = Calendar.getInstance().getTime();
+        Date endOfCycle;
+        int daysLeft;
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String mealPlan = sharedPrefs.getString("mealPlan", "");
+        if (mealPlan == "14P" || mealPlan == "19P") {
+            //set to end of current quarter
+            if (currentDate.compareTo(endOfFall18) <= 0) {
+                endOfCycle = endOfFall18;
+            } else if (currentDate.compareTo(endOfWinter19) <= 0) {
+                endOfCycle = endOfWinter19;
+            } else if (currentDate.compareTo(endOfSpring19) <= 0) {
+                endOfCycle = endOfSpring19;
+            } else {
+                endOfCycle = new Date(2019, 9, 20);
+            }
+
+            //calculate difference of days between endOfCycle and current day
+            long diff = endOfCycle.getTime() - currentDate.getTime();
+            daysLeft = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+        } else {
+            //set to end of current week
+            daysLeft = 7 - Calendar.DAY_OF_WEEK;
+        }
+
+        //calculate correct number of swipes left
+        int correctSwipesLeft = calculateCorrectSwipesLeft(daysLeft);
+//PROBLEMMMMMMMMMM
+        //return difference of actual vs correct
+        return swipesLeftNum - correctSwipesLeft;
+    }
+
+    //calculates correct number of swipesLeft depending on number of days left
+    int calculateCorrectSwipesLeft(int daysLeft) {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String mealPlan = sharedPrefs.getString("mealPlan", "");
+        switch (mealPlan) {
+            case "11R":
+                //figure out how
+                return 0;
+            case "14R":
+                //figure out how
+                return 0;
+            case "19R":
+                //figure out how
+                return 0;
+            case "14P":
+                //14P gives 2 swipes per day
+                return 2 * daysLeft;
+            case "19P":
+                //figure out how to calculate bc varies by day
+                return 0;
+            default:
+                return 0;
+        }
     }
 
     //handles when user taps swipe button
@@ -133,6 +218,7 @@ public class MainActivity extends AppCompatActivity {
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(Integer.toString(swipesLeftNum));
         setSwipesUsed();
+        setPace();
     }
 
     //handles when it should calculate how many swipes have been used
