@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MySwipes</string>
+    <string name="app_name">UCLA Swipes</string>
 
     <!-- section titles -->
     <string name="title_swipes_used">Swipes Used</string>
