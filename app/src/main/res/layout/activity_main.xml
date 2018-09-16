@@ -45,9 +45,10 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="bottom|end"
-                android:text="--quarter--"
+                android:text="@string/placeholder_quarter"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                tools:ignore="NestedWeights" />
 
             <TextView
                 android:id="@+id/dateText"
@@ -57,7 +58,7 @@
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
                 android:gravity="top|end"
-                android:text="--DATE--"
+                android:text="@string/placeholder_date"
                 android:textColor="@color/white"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -70,7 +71,7 @@
             android:layout_marginStart="5dp"
             android:layout_weight="1"
             android:gravity="center|start"
-            android:text="MP"
+            android:text="@string/placeholder_mealPlan"
             android:textColor="@color/white"
             android:textSize="48sp" />
     </LinearLayout>
@@ -113,7 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|top"
-                android:text="12"
+                android:text="@string/placeholder_swipesUsed"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>
@@ -139,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-28dp"
                 android:gravity="center_horizontal|top"
-                android:text="158"
+                android:text="@string/placeholder_swipesLeft"
                 android:textColor="@color/black"
                 android:textSize="100sp" />
         </LinearLayout>
@@ -164,7 +165,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal|top"
-                android:text="1"
+                android:text="@string/placeholder_pace"
                 android:textColor="@color/black"
                 android:textSize="24sp" />
         </LinearLayout>
