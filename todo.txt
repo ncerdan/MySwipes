@@ -1,6 +1,3 @@
--check settings swipesLeft input:
-    -change from toast to popup (dialog) if failed
-
 -calculate pace:
     -should be easy for P plans
     -text axel about how r plans work?
