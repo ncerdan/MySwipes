@@ -1,5 +1,6 @@
 package com.nickcerdan.myswipes;
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
@@ -7,9 +8,9 @@ import android.preference.Preference;
 import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -53,20 +54,31 @@ public class SettingsActivity extends AppCompatActivity {
                     String mealPlanString = sharedPrefs.getString("mealPlan", "");
                     int mealPlanNum = getMealPlanNum(mealPlanString);
                     
-                    if (input >= 0 && input <= mealPlanNum) {
+                    if (input <= mealPlanNum) {
                         return true;
                     } else {
-                        String msg;
-                        if (input < 0) {
-                            msg = "You cannot input a number less than 0!";
-                        } else {
-                            msg = "Your current meal plan is " + mealPlanString + ", so you can't have more than " + mealPlanNum + " swipes left.";
-                        }
-                        Toast.makeText(getActivity(), msg, Toast.LENGTH_LONG).show();
+                        String msg = "Your current meal plan is " + mealPlanString + ", so you can't have more than " + mealPlanNum + " swipes left.";
+                        createAlertDialog(msg);
                         return false;
                     }
                 }
             });
+        }
+
+        //creates basic alert dialog with msg as message string
+        private void createAlertDialog(String msg) {
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(getActivity());
+            alertBuilder.setMessage(msg)
+                    .setCancelable(false)
+                    .setPositiveButton("Okay", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = alertBuilder.create();
+            alert.setTitle("Invalid Input!");
+            alert.show();
         }
 
         //returns number associated with mealPlanString
