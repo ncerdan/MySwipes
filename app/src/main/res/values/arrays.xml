@@ -2,7 +2,14 @@
 <resources>
 
     <!-- arrays for settings -->
-    <string-array name="mealPlans">
+    <string-array name="mealPlans_entries">
+        <item>11R - Cub 11</item>
+        <item>14R - Gold 14</item>
+        <item>19R - Gold 19</item>
+        <item>14P - Bruin Premier 14</item>
+        <item>19P - Bruin Premier 19</item>
+    </string-array>
+    <string-array name="mealPlans_values">
         <item>11R</item>
         <item>14R</item>
         <item>19R</item>

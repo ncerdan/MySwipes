@@ -4,8 +4,8 @@
         android:key="mealPlan"
         android:title="Meal Plan"
         android:summary="Choose your meal plan"
-        android:entries="@array/mealPlans"
-        android:entryValues="@array/mealPlans"
+        android:entries="@array/mealPlans_entries"
+        android:entryValues="@array/mealPlans_values"
         android:defaultValue="14P">
     </ListPreference>
     <EditTextPreference

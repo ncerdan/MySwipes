@@ -2,8 +2,7 @@
     -text axel about how r plans work?
 
     -for 19p plan:
-        -how to handle efficiently?
-            -calculate weeks left, use that and days left to calculate 
+        -calculate weeks left, use that and days left to calculate 
 
 -new ui with circular progress bar
 -animation for swiping?
