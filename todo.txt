@@ -6,3 +6,6 @@
 
 -new ui with circular progress bar
 -animation for swiping?
+-decorate settings activity?
+-customzie ic_launcher
+
