@@ -137,23 +137,14 @@ public class MainActivity extends AppCompatActivity {
 
     //calculates pace value
     private int calculatePace() {
-        /*
-            -insert check for whether P or R plan and change depending
-            -ask Axel about R plan
-         */
-
-        /*calculate dates needed in calculation
-            -P plans endOfCycle is end of quarter
-            -R plans endOfCycle is end of week
-         */
         Date currentDate = Calendar.getInstance().getTime();
-        Date endOfCycle;
         int daysLeft;
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String mealPlan = sharedPrefs.getString("mealPlan", "");
-        if (mealPlan == "14P" || mealPlan == "19P") {
-            //set to end of current quarter
+        if (mealPlan.equals("14P") || mealPlan.equals("19P")) {
+            //calculates days left to end of quarter
+            Date endOfCycle;
             if (currentDate.compareTo(endOfFall18) <= 0) {
                 endOfCycle = endOfFall18;
             } else if (currentDate.compareTo(endOfWinter19) <= 0) {
@@ -161,44 +152,95 @@ public class MainActivity extends AppCompatActivity {
             } else if (currentDate.compareTo(endOfSpring19) <= 0) {
                 endOfCycle = endOfSpring19;
             } else {
-                endOfCycle = new Date(2019, 9, 20);
+                endOfCycle = new Date(119, 8, 20);
             }
 
-            //calculate difference of days between endOfCycle and current day
             long diff = endOfCycle.getTime() - currentDate.getTime();
             daysLeft = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
         } else {
-            //set to end of current week
-            daysLeft = 7 - Calendar.DAY_OF_WEEK;
+            //calculates days left to end of current week
+            int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
+
+            //if it's sunday, set days left to 0
+            if (dayOfWeek == 1)
+                daysLeft = 0;
+            //otherwise, set days left to days until sunday
+            else
+                daysLeft = 8 - dayOfWeek;
         }
 
         //calculate correct number of swipes left
-        int correctSwipesLeft = calculateCorrectSwipesLeft(daysLeft);
-//PROBLEMMMMMMMMMM
+        int correctSwipesLeft = calculateCorrectSwipesLeft(daysLeft, mealPlan);
+
         //return difference of actual vs correct
         return swipesLeftNum - correctSwipesLeft;
     }
 
     //calculates correct number of swipesLeft depending on number of days left
-    int calculateCorrectSwipesLeft(int daysLeft) {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        String mealPlan = sharedPrefs.getString("mealPlan", "");
+    int calculateCorrectSwipesLeft(int daysLeft, String mealPlan) {
         switch (mealPlan) {
             case "11R":
-                //figure out how
-                return 0;
+                switch (daysLeft) {
+                    //sunday
+                    case 0:
+                        return 0;
+                    //saturday
+                    case 1:
+                        return 1;
+                    //friday
+                    case 2:
+                        return 3;
+                    //thursday
+                    case 3:
+                        return 5;
+                    //wednesday
+                    case 4:
+                        return 6;
+                    //tuesday
+                    case 5:
+                        return 8;
+                    //monday
+                    case 6:
+                        return 9;
+                    //will never get called
+                    default:
+                        return 0;
+                }
             case "14R":
-                //figure out how
-                return 0;
-            case "19R":
-                //figure out how
-                return 0;
             case "14P":
-                //14P gives 2 swipes per day
+                //14R and 14P both gives 2 swipes per day left
                 return 2 * daysLeft;
+            case "19R":
+                switch (daysLeft) {
+                    //sunday
+                    case 0:
+                        return 0;
+                    //saturday
+                    case 1:
+                        return 2;
+                    //friday
+                    case 2:
+                        return 4;
+                    //thursday
+                    case 3:
+                        return 7;
+                    //wednesday
+                    case 4:
+                        return 10;
+                    //tuesday
+                    case 5:
+                        return 13;
+                    //monday
+                    case 6:
+                        return 16;
+                    //will never get called
+                    default:
+                        return 0;
+                }
             case "19P":
                 //figure out how to calculate bc varies by day
                 return 0;
+            //will never get called
             default:
                 return 0;
         }

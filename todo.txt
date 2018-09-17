@@ -1,6 +1,9 @@
 -calculate pace:
-    -should be easy for P plans
     -text axel about how r plans work?
+
+    -for 19p plan:
+        -how to handle efficiently?
+            -calculate weeks left, use that and days left to calculate 
 
 -new ui with circular progress bar
 -animation for swiping?
