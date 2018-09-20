@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (currentDate.compareTo(endOfSpring19) <= 0) {
                 endOfCycle = endOfSpring19;
             } else {
-                endOfCycle = new Date(119, 8, 20);
+                endOfCycle = new Date(119, Calendar.SEPTEMBER, 20);
             }
 
             long diff = endOfCycle.getTime() - currentDate.getTime();
@@ -207,9 +207,11 @@ public class MainActivity extends AppCompatActivity {
                         return 0;
                 }
             case "14R":
-            case "14P":
-                //14R and 14P both gives 2 swipes per day left
+                //14R gives 2 swipes per day left
                 return 2 * daysLeft;
+            case "14P":
+                //14P both gives 2 swipes per day left (excluding holiday) **CHECK**
+                return 2 * (daysLeft - 2);
             case "19R":
                 switch (daysLeft) {
                     //sunday
@@ -238,8 +240,45 @@ public class MainActivity extends AppCompatActivity {
                         return 0;
                 }
             case "19P":
-                //figure out how to calculate bc varies by day
+                // - 4 to make up for holidays **CHECK**
+                return calculate19P(daysLeft) - 4;
+            //will never get called
+            default:
                 return 0;
+        }
+    }
+
+    //calculates correct amount of swipes left for 19P meal plan
+    private int calculate19P(int daysLeft) {
+        //calculate number of weeks left and what day it is in week
+        int weeksLeft = daysLeft / 7;
+        int daysLeftInWeek = daysLeft % 7;
+
+        //user should have 19 swipes for each week left,
+        //plus certain amount based on day of week
+        int res = 19 * weeksLeft;
+        switch (daysLeftInWeek){
+            //sunday
+            case 0:
+                return res;
+            //saturday
+            case 1:
+                return res + 2;
+            //friday
+            case 2:
+                return res + 4;
+            //thursday
+            case 3:
+                return res + 7;
+            //wednesday
+            case 4:
+                return res + 10;
+            //tuesday
+            case 5:
+                return res + 13;
+            //monday
+            case 6:
+                return res + 16;
             //will never get called
             default:
                 return 0;
