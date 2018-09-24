@@ -1,6 +1,5 @@
 -calculating pace:
-    -text axel about how r plans work?
-    -check 19P
+    -fix 19P to be on track
 
 -new ui with circular progress bar
 -animation for swiping?
@@ -10,6 +9,4 @@
     -same for swipes left?
 
 -check for holidays
-    -customize 19P for thanksgiving week?
     -found at "**CHECK**"
-    -NOT SAME FOR EACH QUARTER

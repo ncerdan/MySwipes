@@ -241,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             case "19P":
                 // - 4 to make up for holidays **CHECK**
-                return calculate19P(daysLeft) - 4;
+                return calculate19P(daysLeft) - 2;
             //will never get called
             default:
                 return 0;
