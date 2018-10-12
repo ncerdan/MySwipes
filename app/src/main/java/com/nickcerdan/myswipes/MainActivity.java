@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
         //set date
         Date currentDate = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM d");
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
         String dateString = formatter.format(currentDate);
 
         dateText = findViewById(R.id.dateText);
