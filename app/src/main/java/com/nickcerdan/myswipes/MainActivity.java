@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        //re-calculate if date or quarter has changed since last use
+        //set date and quarter. in case its changed since last open
         setDateAndQuarter();
 
         //check if user changed swipesLeft in settings
@@ -157,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
 
             long diff = endOfCycle.getTime() - currentDate.getTime();
             daysLeft = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+            daysLeft += 1; //to include last day
         } else {
             //calculates days left to end of current week
             int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
@@ -207,11 +208,9 @@ public class MainActivity extends AppCompatActivity {
                         return 0;
                 }
             case "14R":
-                //14R gives 2 swipes per day left
-                return 2 * daysLeft;
             case "14P":
-                //14P both gives 2 swipes per day left (excluding holiday) **CHECK**
-                return 2 * (daysLeft - 2);
+                //both have 2 swipes per day left
+                return 2 * daysLeft;
             case "19R":
                 switch (daysLeft) {
                     //sunday
@@ -240,8 +239,8 @@ public class MainActivity extends AppCompatActivity {
                         return 0;
                 }
             case "19P":
-                // - 4 to make up for holidays **CHECK**
-                return calculate19P(daysLeft) - 2;
+                //CALCULATE WEEK,DAY PAIR TO CALCULATE
+                return calculate19P(daysLeft);
             //will never get called
             default:
                 return 0;
@@ -310,7 +309,6 @@ public class MainActivity extends AppCompatActivity {
         quarterText = findViewById(R.id.quarterText);
         quarterText.setText(quarterString);
     }
-
 
     //handles when user taps swipe button
     private void swipe() {

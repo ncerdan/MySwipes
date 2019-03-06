@@ -1,12 +1,14 @@
--calculating pace:
-    -fix 19P to be on track
+FUNCTIONALITY
+----
+-tap mealplan text to open settings for mealplan?
+    -same for swipes left?
+-plans get extra swipes at end of quarter cuz finals end on friday (not sunday)
 
+
+UI
+----
 -new ui with circular progress bar
 -animation for swiping?
 -decorate settings activity?
 -customzie ic_launcher
--tap mealplan text to open settings for mealplan?
-    -same for swipes left?
 
--check for holidays
-    -found at "**CHECK**"
