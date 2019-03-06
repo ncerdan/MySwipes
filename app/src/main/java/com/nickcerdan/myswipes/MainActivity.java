@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         }
         swipesLeftNum = sharedPrefs.getInt("swipesLeft", 0);
         swipesLeftText = findViewById(R.id.swipesLeft);
-        swipesLeftText.setText(Integer.toString(swipesLeftNum));
+        swipesLeftText.setText(String.format(Locale.US, "%d",swipesLeftNum));
 
         //set date
         Date currentDate = Calendar.getInstance().getTime();
@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
             sharedPrefs.edit().putInt("swipesLeft", swipesLeftNum).apply();
 
             swipesLeftText = findViewById(R.id.swipesLeft);
-            swipesLeftText.setText(Integer.toString(swipesLeftNum));
+            swipesLeftText.setText(String.format(Locale.US, "%d", swipesLeftNum));
         }
 
         //set mealPlan. here in case user changed in settings
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     private void setPace() {
         int paceNum = calculatePace();
         paceText = findViewById(R.id.pace);
-        paceText.setText(Integer.toString(paceNum));
+        paceText.setText(String.format(Locale.US, "%d", paceNum));
     }
 
     //calculates pace value
@@ -308,7 +308,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPrefs.edit().putString("setting_swipesLeft", Integer.toString(swipesLeftNum)).apply();
 
         swipesLeftText = findViewById(R.id.swipesLeft);
-        swipesLeftText.setText(Integer.toString(swipesLeftNum));
+        swipesLeftText.setText(String.format(Locale.US, "%d", swipesLeftNum));
         setSwipesUsed();
         setPace();
     }
@@ -339,6 +339,6 @@ public class MainActivity extends AppCompatActivity {
         }
         int swipesUsedNum = mealPlanNum - swipesLeftNum;
         swipesUsedText = findViewById(R.id.swipesUsed);
-        swipesUsedText.setText(Integer.toString(swipesUsedNum));
+        swipesUsedText.setText(String.format(Locale.US, "%d", swipesUsedNum));
     }
 }
