@@ -34,9 +34,11 @@ public class MainActivity extends AppCompatActivity {
     int swipesLeftNum;
 
     //constants
-    final Date endOfFall18 = new Date(118, Calendar.DECEMBER, 14);
-    final Date endOfWinter19 = new Date(119, Calendar.MARCH, 22);
-    final Date endOfSpring19 = new Date(119, Calendar.JUNE, 14);
+    final Date ENDFALL18 = new Date(118, Calendar.DECEMBER, 14);
+    final Date ENDWINTER19 = new Date(119, Calendar.MARCH, 22);
+    final Date ENDSPRING19 = new Date(119, Calendar.JUNE, 14);
+
+
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -57,28 +59,8 @@ public class MainActivity extends AppCompatActivity {
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(String.format(Locale.US, "%d",swipesLeftNum));
 
-        //set date
-        Date currentDate = Calendar.getInstance().getTime();
-        SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
-        String dateString = formatter.format(currentDate);
-
-        dateText = findViewById(R.id.dateText);
-        dateText.setText(dateString);
-
-        //set quarter
-        String quarterString;
-        if (currentDate.compareTo(endOfFall18) <= 0) {
-            quarterString = "Fall 18";
-        } else if (currentDate.compareTo(endOfWinter19) <= 0) {
-            quarterString = "Winter 19";
-        } else if (currentDate.compareTo(endOfSpring19) <= 0) {
-            quarterString = "Spring 19";
-        } else {
-            quarterString = "ERROR";
-        }
-
-        quarterText = findViewById(R.id.quarterText);
-        quarterText.setText(quarterString);
+        //redundant if also in onResume()?
+        setDateAndQuarter();
 
         //initialize swipe button and listener
         swipeButton = findViewById(R.id.swipeBtn);
@@ -105,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
+        //re-calculate if date or quarter has changed since last use
+        setDateAndQuarter();
+
         //check if user changed swipesLeft in settings
         swipesLeftNum = sharedPrefs.getInt("swipesLeft", -999);
         String swipesSettingsValue = sharedPrefs.getString("setting_swipesLeft", "");
@@ -127,15 +112,19 @@ public class MainActivity extends AppCompatActivity {
 
         //set pace. here in case user changes swipesLeft in settings
         setPace();
-
-        //CHECK IF DATE/QUARTER HAS CHANGED??
     }
 
     //calculates then sets pace
     private void setPace() {
         int paceNum = calculatePace();
+        String paceString;
+        if (paceNum > 0) {
+            paceString = String.format(Locale.US, "+%d", paceNum);
+        } else {
+            paceString = String.format(Locale.US, "%d", paceNum);
+        }
         paceText = findViewById(R.id.pace);
-        paceText.setText(String.format(Locale.US, "%d", paceNum));
+        paceText.setText(paceString);
     }
 
     //calculates pace value
@@ -156,12 +145,12 @@ public class MainActivity extends AppCompatActivity {
         if (mealPlan.equals("14P") || mealPlan.equals("19P")) {
             //calculates days left to end of quarter
             Date endOfCycle;
-            if (currentDate.compareTo(endOfFall18) <= 0) {
-                endOfCycle = endOfFall18;
-            } else if (currentDate.compareTo(endOfWinter19) <= 0) {
-                endOfCycle = endOfWinter19;
-            } else if (currentDate.compareTo(endOfSpring19) <= 0) {
-                endOfCycle = endOfSpring19;
+            if (currentDate.compareTo(ENDFALL18) <= 0) {
+                endOfCycle = ENDFALL18;
+            } else if (currentDate.compareTo(ENDWINTER19) <= 0) {
+                endOfCycle = ENDWINTER19;
+            } else if (currentDate.compareTo(ENDSPRING19) <= 0) {
+                endOfCycle = ENDSPRING19;
             } else {
                 endOfCycle = new Date(119, Calendar.SEPTEMBER, 20);
             }
@@ -295,6 +284,33 @@ public class MainActivity extends AppCompatActivity {
                 return 0;
         }
     }
+
+    //calculates date and quarter
+    private void setDateAndQuarter() {
+        //set date
+        Date currentDate = Calendar.getInstance().getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
+        String dateString = formatter.format(currentDate);
+
+        dateText = findViewById(R.id.dateText);
+        dateText.setText(dateString);
+
+        //set quarter
+        String quarterString;
+        if (currentDate.compareTo(ENDFALL18) <= 0) {
+            quarterString = "Fall 18";
+        } else if (currentDate.compareTo(ENDWINTER19) <= 0) {
+            quarterString = "Winter 19";
+        } else if (currentDate.compareTo(ENDSPRING19) <= 0) {
+            quarterString = "Spring 19";
+        } else {
+            quarterString = "ERROR";
+        }
+
+        quarterText = findViewById(R.id.quarterText);
+        quarterText.setText(quarterString);
+    }
+
 
     //handles when user taps swipe button
     private void swipe() {
