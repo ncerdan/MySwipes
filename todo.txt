@@ -1,5 +1,7 @@
 FUNCTIONALITY
 ----
+-add setting field for planned days with no swiping (i.e. holidays / vacations, etc.)
+    -would just use it to decrement daysLeft in calculate pace (look for **HERE**)
 -tap mealplan text to open settings for mealplan?
     -same for swipes left?
 -plans get extra swipes at end of quarter cuz finals end on friday (not sunday)

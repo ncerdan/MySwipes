@@ -135,13 +135,6 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String mealPlan = sharedPrefs.getString("mealPlan", "");
 
-
-        /*
-         * Change to just calculating week/day,
-         * less accurate but simpler and not variant by quarter
-         */
-
-
         if (mealPlan.equals("14P") || mealPlan.equals("19P")) {
             //calculates days left to end of quarter
             Date endOfCycle;
@@ -158,6 +151,9 @@ public class MainActivity extends AppCompatActivity {
             long diff = endOfCycle.getTime() - currentDate.getTime();
             daysLeft = (int) TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
             daysLeft += 1; //to include last day
+
+            //CHECK SETTINGS FOR PLANNED DAYS WITH NO SWIPING **HERE**
+
         } else {
             //calculates days left to end of current week
             int dayOfWeek = Calendar.getInstance().get(Calendar.DAY_OF_WEEK);
