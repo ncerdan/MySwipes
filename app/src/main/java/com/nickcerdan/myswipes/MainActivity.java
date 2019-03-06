@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         //set swipesLeft
         swipesLeftNum = sharedPrefs.getInt("swipesLeft", -999);
-            //if first time opening app
+        //if first time opening app, default to 14P
         if (swipesLeftNum == -999) {
             sharedPrefs.edit().putInt("swipesLeft", 158).apply();
             sharedPrefs.edit().putString("setting_swipesLeft", "158").apply();
@@ -127,6 +127,8 @@ public class MainActivity extends AppCompatActivity {
 
         //set pace. here in case user changes swipesLeft in settings
         setPace();
+
+        //CHECK IF DATE/QUARTER HAS CHANGED??
     }
 
     //calculates then sets pace
@@ -143,6 +145,14 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String mealPlan = sharedPrefs.getString("mealPlan", "");
+
+
+        /*
+         * Change to just calculating week/day,
+         * less accurate but simpler and not variant by quarter
+         */
+
+
         if (mealPlan.equals("14P") || mealPlan.equals("19P")) {
             //calculates days left to end of quarter
             Date endOfCycle;
@@ -303,7 +313,7 @@ public class MainActivity extends AppCompatActivity {
         setPace();
     }
 
-    //handles when it should calculate how many swipes have been used
+    //handles calculating how many swipes have been used
     private void setSwipesUsed() {
         int mealPlanNum;
         String mealPlanString = sharedPrefs.getString("mealPlan", "");
