@@ -3,8 +3,12 @@ package com.nickcerdan.myswipes;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,13 +36,43 @@ public class MainActivity extends AppCompatActivity {
     String mealPlanString;
     SharedPreferences sharedPrefs;
     int swipesLeftNum;
+    VelocityTracker velTracker = null;
 
     //constants
     final Date ENDFALL18 = new Date(118, Calendar.DECEMBER, 14);
     final Date ENDWINTER19 = new Date(119, Calendar.MARCH, 22);
     final Date ENDSPRING19 = new Date(119, Calendar.JUNE, 14);
 
-
+    //handles touching events to look for swipes on swipe button
+    boolean isSwipingRight = false;
+    public boolean onTouchEvent(MotionEvent event) {
+        int index = event.getActionIndex();
+        int action = event.getActionMasked();
+        int pointerID = event.getPointerId(index);
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
+                if (velTracker == null) {
+                    velTracker = VelocityTracker.obtain();
+                } else {
+                    velTracker.clear();
+                }
+                velTracker.addMovement(event);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                velTracker.addMovement(event);
+                velTracker.computeCurrentVelocity(1000);
+                if (velTracker.getXVelocity(pointerID) > 300) isSwipingRight = true;
+                break;
+            case MotionEvent.ACTION_UP:
+                if (isSwipingRight) swipe();
+            case MotionEvent.ACTION_CANCEL:
+                isSwipingRight = false;
+                velTracker.recycle();
+                velTracker = null;
+                break;
+        }
+        return true;
+    }
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -62,14 +96,19 @@ public class MainActivity extends AppCompatActivity {
         //redundant if also in onResume()?
         setDateAndQuarter();
 
-        //initialize swipe button and listener
+        /*initialize swipe button and listener
         swipeButton = findViewById(R.id.swipeBtn);
         swipeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 swipe();
             }
-        });
+        });*/
+
+
+
+
+
 
         //initialize settings button and listener
         settingsButton = findViewById(R.id.settingsBtn);
@@ -235,8 +274,9 @@ public class MainActivity extends AppCompatActivity {
                         return 0;
                 }
             case "19P":
-                //CALCULATE WEEK,DAY PAIR TO CALCULATE
+                //CALCULATE WEEK,DAY PAIR
                 return calculate19P(daysLeft);
+
             //will never get called
             default:
                 return 0;
