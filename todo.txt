@@ -1,3 +1,11 @@
+UP NEXT
+----
+-button seems to be stopping onTouchEvent to be registering touch so valid swipe touches
+only work on outskirts of button where bounds include it but button doesn't
+-use values from view.id instead of hardcoding them?
+
+
+
 FUNCTIONALITY
 ----
 -add setting field for planned days with no swiping (i.e. holidays / vacations, etc.)

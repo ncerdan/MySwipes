@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
     final Date ENDSPRING19 = new Date(119, Calendar.JUNE, 14);
 
     //handles touching events to look for swipes on swipe button
-    boolean isSwipingRight = false;
+    boolean isSwiping = false;
     public boolean onTouchEvent(MotionEvent event) {
         int index = event.getActionIndex();
         int action = event.getActionMasked();
         int pointerID = event.getPointerId(index);
+        Button swipeBtn = (Button) findViewById(R.id.swipeBtn);
+
         switch (action) {
             case MotionEvent.ACTION_DOWN:
                 if (velTracker == null) {
@@ -57,16 +59,25 @@ public class MainActivity extends AppCompatActivity {
                     velTracker.clear();
                 }
                 velTracker.addMovement(event);
+                if (isInSwipeButton(swipeBtn, event)) {
+                    Log.d("swipe", "is in button!");
+                    isSwiping = true;
+                }
                 break;
             case MotionEvent.ACTION_MOVE:
                 velTracker.addMovement(event);
                 velTracker.computeCurrentVelocity(1000);
-                if (velTracker.getXVelocity(pointerID) > 300) isSwipingRight = true;
+                if (isSwiping) {
+                    Log.d("swipe", "moving swipe card");
+                }
                 break;
             case MotionEvent.ACTION_UP:
-                if (isSwipingRight) swipe();
+                if (isSwiping) {
+                    Log.d("swipe", "successful swipe");
+                    swipe();
+                }
             case MotionEvent.ACTION_CANCEL:
-                isSwipingRight = false;
+                isSwiping = false;
                 velTracker.recycle();
                 velTracker = null;
                 break;
@@ -95,20 +106,6 @@ public class MainActivity extends AppCompatActivity {
 
         //redundant if also in onResume()?
         setDateAndQuarter();
-
-        /*initialize swipe button and listener
-        swipeButton = findViewById(R.id.swipeBtn);
-        swipeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                swipe();
-            }
-        });*/
-
-
-
-
-
 
         //initialize settings button and listener
         settingsButton = findViewById(R.id.settingsBtn);
@@ -390,5 +387,35 @@ public class MainActivity extends AppCompatActivity {
         int swipesUsedNum = mealPlanNum - swipesLeftNum;
         swipesUsedText = findViewById(R.id.swipesUsed);
         swipesUsedText.setText(String.format(Locale.US, "%d", swipesUsedNum));
+    }
+
+    //checks whether a  touching motion is on the swipe button
+    private boolean isInSwipeButton(Button btn, MotionEvent event) {
+        /*
+        float btnX = btn.getX();
+        float btnY = btn.getY();
+        float btnWidth  = btn.getWidth();
+        float btnHeight = btn.getHeight();
+        float btnXBound = btnX + btnWidth;
+        float btnYBound = btnY + btnHeight;
+        */
+        float eventX = event.getX();
+        float eventY = event.getY();
+
+        //Log.d("swipe", "BtnX: " + btnX);
+        //Log.d("swipe", "BtnY: " + btnX);
+        //Log.d("swipe", "BtnW: " + btnWidth);
+        //Log.d("swipe", "BtnH: " + btnHeight);
+        Log.d("swipe", "eveX: " + eventX);
+        Log.d("swipe", "eveY: " + eventY);
+
+
+
+
+
+        //uses hardcoded values because I know where the button should be.
+        //   change to use values form id?
+        return (eventX > 190 && eventX < 1247 &&
+                eventY > 1538 && eventY < 2145);
     }
 }
