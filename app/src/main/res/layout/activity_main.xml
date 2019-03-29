@@ -177,7 +177,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="72dp"
-        android:background="@xml/circular_button"
+        android:background="@xml/swipe_button"
         android:text="@string/button_text"
         android:textSize="20sp"
         android:textColor="@color/white"
