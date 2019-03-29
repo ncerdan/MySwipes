@@ -172,15 +172,15 @@
 
     </LinearLayout>
 
-    <Button
+    <View
         android:id="@+id/swipeBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="315dp"
+        android:layout_height="175dp"
         android:layout_marginBottom="72dp"
         android:background="@xml/swipe_button"
         android:text="@string/button_text"
-        android:textSize="20sp"
         android:textColor="@color/white"
+        android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
