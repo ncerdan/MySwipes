@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -405,6 +407,9 @@ public class MainActivity extends AppCompatActivity {
 
     //move swipe view to starting position smoothly
     private void moveToStart(float x, boolean atEnd) {
+        Animation swipedAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.swiped);
+        swipeButton.startAnimation(swipedAnim);
+        /*
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -439,5 +444,6 @@ public class MainActivity extends AppCompatActivity {
             swipeButton.setX(x);
         }
         Log.d("move", "4 x= " + x);
+        */
     }
 }
