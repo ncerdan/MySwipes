@@ -77,11 +77,7 @@ public class MainActivity extends AppCompatActivity {
                             atEnd = true;
                         }
                     case MotionEvent.ACTION_CANCEL:
-                        try {
-                            moveToStart(x, atEnd);
-                        } catch (InterruptedException ie) {
-                            swipeButton.setX(168);
-                        }
+                        moveToStart(x, atEnd);
                         atEnd = false;
                         isSwiping = false;
                         break;
@@ -410,7 +406,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //move swipe view to starting position smoothly
-    private void moveToStart(float x, boolean atEnd) throws InterruptedException {
+    private void moveToStart(float x, boolean atEnd) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -424,15 +420,26 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < diff; i++) {
                 x++;
                 swipeButton.setX(x);
+                Log.d("move", "1 x= " + x);
             }
             x = -315;
             do {
+                Log.d("move", "2 x= " + x);
                 swipeButton.setX(x);
                 x++;
             } while (x < 168);
         } else {
             //just move back to middle (168)
-            swipeButton.setX(168);
+            int diff = (int) x - 168;
+            boolean movingLeft = diff > 0;
+            diff = movingLeft? diff : diff * -1;
+            for (int i = 0; i < diff; i++) {
+                x = movingLeft? x - 1 : x + 1;
+                swipeButton.setX(x);
+                Log.d("move", "3 x= " + x);
+            }
+            swipeButton.setX(x);
         }
+        Log.d("move", "4 x= " + x);
     }
 }
