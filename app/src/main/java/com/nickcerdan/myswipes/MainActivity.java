@@ -2,11 +2,13 @@ package com.nickcerdan.myswipes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -36,7 +38,9 @@ public class MainActivity extends AppCompatActivity {
     String mealPlanString;
     SharedPreferences sharedPrefs;
     int swipesLeftNum;
+    float diff = 0;
     boolean isSwiping = false;
+    boolean atEnd = false;
 
     //constants
     final Date ENDFALL18 = new Date(118, Calendar.DECEMBER, 14);
@@ -45,30 +49,43 @@ public class MainActivity extends AppCompatActivity {
 
     //handles touching events on swipe button
     private void addSwipeTouchListener() {
-        swipeButton = (View) findViewById(R.id.swipeBtn);
+        swipeButton = findViewById(R.id.swipeBtn);
         swipeButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                int index = event.getActionIndex();
                 int action = event.getActionMasked();
-                int pointerID = event.getPointerId(index);
-
+                float x = event.getRawX();
                 switch (action) {
+                    /*
                     case MotionEvent.ACTION_DOWN:
-                        isSwiping = true;
+                        //isSwiping = true;
+                        Log.d("swipe", "eventX= " + event.getRawX());
                         break;
+                        */
                     case MotionEvent.ACTION_MOVE:
-                        if (isSwiping) {
-                            Log.d("swipe", "moving swipe card");
+                        if (!isSwiping) {
+                            diff = 168 - x;
+                            isSwiping = true;
                         }
+
+                        swipeButton.setX(x + diff);
                         break;
                     case MotionEvent.ACTION_UP:
-                        if (isSwiping /* and is over by edge of screen*/) {
-                            Log.d("swipe", "successful swipe");
+                        if (isAtEdge(x)) {
+                            //Log.d("swipe", "successful swipe");
                             swipe();
+                            atEnd = true;
                         }
                     case MotionEvent.ACTION_CANCEL:
+                        try {
+                            moveToStart(x, atEnd);
+                        } catch (InterruptedException ie) {
+                            swipeButton.setX(168);
+                        }
+                        atEnd = false;
                         isSwiping = false;
+                        break;
+                    default:
                         break;
                 }
                 return true;
@@ -381,5 +398,41 @@ public class MainActivity extends AppCompatActivity {
         int swipesUsedNum = mealPlanNum - swipesLeftNum;
         swipesUsedText = findViewById(R.id.swipesUsed);
         swipesUsedText.setText(String.format(Locale.US, "%d", swipesUsedNum));
+    }
+
+    //checks where a float value 'x' is at right edge of screen
+    private boolean isAtEdge(float x) {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int maxX = size.x;
+        return (maxX - x < 300);
+    }
+
+    //move swipe view to starting position smoothly
+    private void moveToStart(float x, boolean atEnd) throws InterruptedException {
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int maxX = size.x;
+
+        Log.d("loop", "atEnd= " + atEnd);
+
+        if (atEnd) {
+            //move it off screen then 'loop' to left end and bring back to middle (168)
+            int diff = maxX - (int) x;
+            for (int i = 0; i < diff; i++) {
+                x++;
+                swipeButton.setX(x);
+            }
+            x = -315;
+            do {
+                swipeButton.setX(x);
+                x++;
+            } while (x < 168);
+        } else {
+            //just move back to middle (168)
+            swipeButton.setX(168);
+        }
     }
 }
