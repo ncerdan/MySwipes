@@ -16,4 +16,7 @@
     <string name="placeholder_swipesLeft">158</string>
     <string name="placeholder_pace">0</string>
 
+    <!-- button name -->
+    <string name="settings_button">settings button</string>
+
 </resources>

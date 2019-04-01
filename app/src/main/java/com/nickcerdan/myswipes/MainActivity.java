@@ -15,7 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     TextView swipesLeftText;
     TextView paceText;
     View swipeButton;
-    Button settingsButton;
+    ImageButton settingsButton;
 
     //vars
     String mealPlanString;
@@ -409,7 +409,7 @@ public class MainActivity extends AppCompatActivity {
         Point size = new Point();
         display.getSize(size);
         int maxX = size.x;
-        return (maxX - x < 300);
+        return (maxX - x < 400);
     }
 
     //move swipe view to starting position smoothly
