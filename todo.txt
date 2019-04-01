@@ -1,5 +1,6 @@
 UP NEXT
 ----
+-change '168' to x value of button (not use hardcoded value), delete ACTION_DOWN switch case
 -use constants for 14p/19p values into seperate constants file to be used in MainActivity and SettingsActivity
 -put animations/touch listener into seperate java file?
 -design 'bruincard'
@@ -7,6 +8,7 @@ UP NEXT
 
 FUNCTIONALITY
 ----
+-check current timezone
 -add setting field for planned days with no swiping (i.e. holidays / vacations, etc.)
     -would just use it to decrement daysLeft in calculate pace (look for **HERE**)
 -tap mealplan text to open settings for mealplan?
