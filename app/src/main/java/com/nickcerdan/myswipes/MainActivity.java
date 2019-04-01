@@ -1,5 +1,8 @@
 package com.nickcerdan.myswipes;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Point;
@@ -10,8 +13,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +49,10 @@ public class MainActivity extends AppCompatActivity {
     final Date ENDFALL18 = new Date(118, Calendar.DECEMBER, 14);
     final Date ENDWINTER19 = new Date(119, Calendar.MARCH, 22);
     final Date ENDSPRING19 = new Date(119, Calendar.JUNE, 14);
+    final int P14_SWIPES = 151;
+    final int P19_SWIPES = 204;
+    final String P14_SWIPES_STRING = Integer.toString(P14_SWIPES);
+    final String P19_SWIPES_STRING = Integer.toString(P19_SWIPES);
 
     //handles touching events on swipe button
     private void addSwipeTouchListener() {
@@ -77,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                             atEnd = true;
                         }
                     case MotionEvent.ACTION_CANCEL:
-                        moveToStart(x, atEnd);
+                        moveToStart(atEnd);
                         atEnd = false;
                         isSwiping = false;
                         break;
@@ -406,44 +413,69 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //move swipe view to starting position smoothly
-    private void moveToStart(float x, boolean atEnd) {
-        Animation swipedAnim = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.swiped);
-        swipeButton.startAnimation(swipedAnim);
-        /*
+    private void moveToStart(boolean atEnd) {
         Display display = getWindowManager().getDefaultDisplay();
-        Point size = new Point();
-        display.getSize(size);
-        int maxX = size.x;
-
-        Log.d("loop", "atEnd= " + atEnd);
+        Point dim = new Point();
+        display.getSize(dim);
+        float screen_width = (float) dim.x;
+        float button_width = swipeButton.getWidth();
 
         if (atEnd) {
-            //move it off screen then 'loop' to left end and bring back to middle (168)
-            int diff = maxX - (int) x;
-            for (int i = 0; i < diff; i++) {
-                x++;
-                swipeButton.setX(x);
-                Log.d("move", "1 x= " + x);
-            }
-            x = -315;
-            do {
-                Log.d("move", "2 x= " + x);
-                swipeButton.setX(x);
-                x++;
-            } while (x < 168);
+            exitRight(screen_width, button_width);
         } else {
-            //just move back to middle (168)
-            int diff = (int) x - 168;
-            boolean movingLeft = diff > 0;
-            diff = movingLeft? diff : diff * -1;
-            for (int i = 0; i < diff; i++) {
-                x = movingLeft? x - 1 : x + 1;
-                swipeButton.setX(x);
-                Log.d("move", "3 x= " + x);
-            }
-            swipeButton.setX(x);
+            returnMiddle();
         }
-        Log.d("move", "4 x= " + x);
-        */
+    }
+
+    //handles animation of leaving right end of screen
+    private void exitRight(float screen_width, final float button_width) {
+        ValueAnimator va_exit_right = ValueAnimator.ofFloat(swipeButton.getX(), screen_width);
+        va_exit_right.setDuration(150);
+        va_exit_right.setInterpolator(new LinearInterpolator());
+        va_exit_right.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                swipeButton.setTranslationX((float) animation.getAnimatedValue());
+            }
+        });
+        va_exit_right.addListener(new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                enterLeft(button_width);
+            }
+        });
+        va_exit_right.setRepeatCount(0);
+        va_exit_right.start();
+    }
+
+    //handles animation of entering left end of screen
+    private void enterLeft(float button_width) {
+        ValueAnimator va_enter_left = ValueAnimator.ofFloat((button_width*-1), 0);
+        va_enter_left.setDuration(150);
+        va_enter_left.setInterpolator(new OvershootInterpolator());
+        va_enter_left.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                swipeButton.setTranslationX((float) animation.getAnimatedValue());
+            }
+        });
+        va_enter_left.setRepeatCount(0);
+        va_enter_left.start();
+    }
+
+    //handles animation of return to middle if card isn't swiped to end of screen
+    private void returnMiddle() {
+        ValueAnimator va_return_middle = ValueAnimator.ofFloat(swipeButton.getX(), 0);
+        va_return_middle.setDuration(300);
+        va_return_middle.setInterpolator(new OvershootInterpolator());
+        va_return_middle.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                swipeButton.setTranslationX((float) animation.getAnimatedValue());
+            }
+        });
+        va_return_middle.setRepeatCount(0);
+        va_return_middle.start();
     }
 }
