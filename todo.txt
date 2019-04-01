@@ -1,9 +1,7 @@
 UP NEXT
 ----
--button seems to be stopping onTouchEvent to be registering touch so valid swipe touches
-only work on outskirts of button where bounds include it but button doesn't
--use values from view.id instead of hardcoding them?
-
+-use constants for 14p/19p values into seperate constants file to be used in MainActivity and SettingsActivity
+-design 'bruincard'
 
 
 FUNCTIONALITY
@@ -18,7 +16,5 @@ FUNCTIONALITY
 UI
 ----
 -new ui with circular progress bar
--animation for swiping?
 -decorate settings activity?
 -customzie ic_launcher
-
