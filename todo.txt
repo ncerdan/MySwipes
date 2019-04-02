@@ -15,6 +15,7 @@ FUNCTIONALITY
 
 UI
 ----
+-positive pace has green arrow up, neg pace has red arrow down, 0 has yellow dash
 -new ui with circular progress bar
 -decorate settings activity?
--customzie ic_launcher
+-customize ic_launcher
