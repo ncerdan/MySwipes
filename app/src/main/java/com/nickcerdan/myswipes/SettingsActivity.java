@@ -12,6 +12,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import static com.nickcerdan.myswipes.Constants.P14_SWIPES;
+import static com.nickcerdan.myswipes.Constants.P19_SWIPES;
+
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -91,9 +94,9 @@ public class SettingsActivity extends AppCompatActivity {
                 case "19R":
                     return 19;
                 case "14P":
-                    return 158;
+                    return P14_SWIPES;
                 case "19P":
-                    return 214;
+                    return P19_SWIPES;
                 default:
                     return -999;
             }

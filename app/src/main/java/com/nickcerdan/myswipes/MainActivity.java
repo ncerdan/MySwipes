@@ -27,7 +27,9 @@ import java.util.concurrent.TimeUnit;
 import static com.nickcerdan.myswipes.Constants.ENDFALL18;
 import static com.nickcerdan.myswipes.Constants.ENDWINTER19;
 import static com.nickcerdan.myswipes.Constants.ENDSPRING19;
-
+import static com.nickcerdan.myswipes.Constants.P14_SWIPES;
+import static com.nickcerdan.myswipes.Constants.P14_SWIPES_STRING;
+import static com.nickcerdan.myswipes.Constants.P19_SWIPES;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,23 +63,15 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getActionMasked();
                 float x = event.getRawX();
                 switch (action) {
-                    /*
-                    case MotionEvent.ACTION_DOWN:
-                        //isSwiping = true;
-                        Log.d("swipe", "eventX= " + event.getRawX());
-                        break;
-                        */
                     case MotionEvent.ACTION_MOVE:
                         if (!isSwiping) {
-                            diff = 168 - x;
+                            diff = swipeButton.getX() - x;
                             isSwiping = true;
                         }
-
                         swipeButton.setX(x + diff);
                         break;
                     case MotionEvent.ACTION_UP:
                         if (isAtEdge(x)) {
-                            //Log.d("swipe", "successful swipe");
                             swipe();
                             atEnd = true;
                         }
@@ -105,16 +99,13 @@ public class MainActivity extends AppCompatActivity {
         swipesLeftNum = sharedPrefs.getInt("swipesLeft", -999);
         //if first time opening app, default to 14P
         if (swipesLeftNum == -999) {
-            sharedPrefs.edit().putInt("swipesLeft", 158).apply();
-            sharedPrefs.edit().putString("setting_swipesLeft", "158").apply();
+            sharedPrefs.edit().putInt("swipesLeft", P14_SWIPES).apply();
+            sharedPrefs.edit().putString("setting_swipesLeft", P14_SWIPES_STRING).apply();
             sharedPrefs.edit().putString("mealPlan", "14P").apply();
         }
         swipesLeftNum = sharedPrefs.getInt("swipesLeft", 0);
         swipesLeftText = findViewById(R.id.swipesLeft);
         swipesLeftText.setText(String.format(Locale.US, "%d",swipesLeftNum));
-
-        //redundant if also in onResume()?
-        //setDateAndQuarter();
 
         //set touch listener from swipe button
         addSwipeTouchListener();
@@ -387,10 +378,10 @@ public class MainActivity extends AppCompatActivity {
                 mealPlanNum = 19;
                 break;
             case "14P":
-                mealPlanNum = 158;
+                mealPlanNum = P14_SWIPES;
                 break;
             case "19P":
-                mealPlanNum = 214;
+                mealPlanNum = P19_SWIPES;
                 break;
             default:
                 mealPlanNum = -999;
@@ -450,7 +441,7 @@ public class MainActivity extends AppCompatActivity {
     //handles animation of entering left end of screen
     private void enterLeft(float button_width) {
         ValueAnimator va_enter_left = ValueAnimator.ofFloat((button_width*-1), 0);
-        va_enter_left.setDuration(150);
+        va_enter_left.setDuration(250);
         va_enter_left.setInterpolator(new OvershootInterpolator());
         va_enter_left.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
