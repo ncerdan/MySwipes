@@ -47,7 +47,7 @@
                 android:gravity="bottom|end"
                 android:text="@string/placeholder_quarter"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 tools:ignore="NestedWeights" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:gravity="top|end"
                 android:text="@string/placeholder_date"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="20sp" />
         </LinearLayout>
 
         <TextView
@@ -107,7 +107,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_swipes_used"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/swipesUsed"
@@ -132,7 +132,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_swipes_left"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/swipesLeft"
@@ -140,9 +140,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="-28dp"
                 android:gravity="center_horizontal|top"
+                android:paddingTop="10dp"
                 android:text="@string/placeholder_swipesLeft"
                 android:textColor="@color/black"
-                android:textSize="100sp" />
+                android:textSize="80sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -158,7 +159,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_pace"
                 android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/pace"
@@ -176,12 +177,11 @@
         android:id="@+id/swipeBtn"
         android:layout_width="315dp"
         android:layout_height="175dp"
-        android:layout_marginBottom="72dp"
+        android:layout_marginBottom="84dp"
         android:background="@xml/swipe_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        />
+        app:layout_constraintStart_toStartOf="parent" />
     <!--
     android:text="@string/button_text"
     android:textColor="@color/white"
