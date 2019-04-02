@@ -326,7 +326,7 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
         formatter.setTimeZone(tz);
         String dateString = formatter.format(currentDate);
-        
+
         dateText = findViewById(R.id.dateText);
         dateText.setText(dateString);
 

@@ -5,7 +5,6 @@ UP NEXT
 
 FUNCTIONALITY
 ----
--check current timezone
 -add setting field for planned days with no swiping (i.e. holidays / vacations, etc.)
     -would just use it to decrement daysLeft in calculate pace (look for **HERE**)
 -tap mealplan text to open settings for mealplan?
@@ -15,7 +14,7 @@ FUNCTIONALITY
 
 UI
 ----
--positive pace has green arrow up, neg pace has red arrow down, 0 has yellow dash
--new ui with circular progress bar
+-positive pace has green arrow up, neg pace has red arrow down, 0 has yellow dash?
+-new ui with circular progress bar?
 -decorate settings activity?
 -customize ic_launcher
