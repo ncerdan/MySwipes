@@ -1,8 +1,5 @@
 UP NEXT
 ----
--change '168' to x value of button (not use hardcoded value), delete ACTION_DOWN switch case
--use constants for 14p/19p values into seperate constants file to be used in MainActivity and SettingsActivity
--put animations/touch listener into seperate java file?
 -design 'bruincard'
 
 

@@ -197,6 +197,7 @@
         android:layout_marginRight="8dp"
         android:contentDescription="@string/settings_button"
         android:scaleType="centerCrop"
+        android:background="@android:color/transparent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_settings_blue_24dp" />
