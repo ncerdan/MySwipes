@@ -7,6 +7,7 @@ import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,9 +15,11 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
 import static com.nickcerdan.myswipes.Constants.ENDFALL18;
@@ -322,6 +325,17 @@ public class MainActivity extends AppCompatActivity {
         Date currentDate = Calendar.getInstance().getTime();
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
         String dateString = formatter.format(currentDate);
+
+
+
+        ////////////////
+        SimpleDateFormat tester = new SimpleDateFormat("hh-mm-ss", Locale.US);
+        tester.setTimeZone(TimeZone.getTimeZone("PST"));
+        String testString = tester.format(currentDate);
+
+        Log.d("timezone", "time: " + testString);
+        /////////////////
+
 
         dateText = findViewById(R.id.dateText);
         dateText.setText(dateString);
