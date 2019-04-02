@@ -91,13 +91,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.352"
-        android:weightSum="4"
+        android:weightSum="7"
         android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
@@ -107,7 +107,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_swipes_used"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/swipesUsed"
@@ -122,7 +122,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="2"
+            android:layout_weight="3"
             android:orientation="vertical">
 
             <TextView
@@ -132,7 +132,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_swipes_left"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/swipesLeft"
@@ -149,7 +149,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <TextView
@@ -159,7 +159,7 @@
                 android:gravity="center_horizontal|top"
                 android:text="@string/title_pace"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/pace"
