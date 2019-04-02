@@ -18,12 +18,16 @@ import android.view.animation.OvershootInterpolator;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import static com.nickcerdan.myswipes.Constants.ENDFALL18;
+import static com.nickcerdan.myswipes.Constants.ENDWINTER19;
+import static com.nickcerdan.myswipes.Constants.ENDSPRING19;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,13 +50,7 @@ public class MainActivity extends AppCompatActivity {
     boolean atEnd = false;
 
     //constants
-    final Date ENDFALL18 = new Date(118, Calendar.DECEMBER, 14);
-    final Date ENDWINTER19 = new Date(119, Calendar.MARCH, 22);
-    final Date ENDSPRING19 = new Date(119, Calendar.JUNE, 14);
-    final int P14_SWIPES = 151;
-    final int P19_SWIPES = 204;
-    final String P14_SWIPES_STRING = Integer.toString(P14_SWIPES);
-    final String P19_SWIPES_STRING = Integer.toString(P19_SWIPES);
+
 
     //handles touching events on swipe button
     private void addSwipeTouchListener() {
