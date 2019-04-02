@@ -15,7 +15,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import java.text.SimpleDateFormat;
-import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -323,20 +322,11 @@ public class MainActivity extends AppCompatActivity {
     private void setDateAndQuarter() {
         //set date
         Date currentDate = Calendar.getInstance().getTime();
+        TimeZone tz = TimeZone.getDefault();
         SimpleDateFormat formatter = new SimpleDateFormat("MMM d", Locale.US);
+        formatter.setTimeZone(tz);
         String dateString = formatter.format(currentDate);
-
-
-
-        ////////////////
-        SimpleDateFormat tester = new SimpleDateFormat("hh-mm-ss", Locale.US);
-        tester.setTimeZone(TimeZone.getTimeZone("PST"));
-        String testString = tester.format(currentDate);
-
-        Log.d("timezone", "time: " + testString);
-        /////////////////
-
-
+        
         dateText = findViewById(R.id.dateText);
         dateText.setText(dateString);
 
