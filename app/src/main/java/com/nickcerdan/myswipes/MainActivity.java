@@ -2,6 +2,7 @@ package com.nickcerdan.myswipes;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -156,6 +157,9 @@ public class MainActivity extends AppCompatActivity {
         }
         paceText = findViewById(R.id.pace);
         paceText.setText(paceString);
+        if (paceNum < 0)      paceText.setTextColor(Color.RED);
+        else if (paceNum > 0) paceText.setTextColor(Color.GREEN);
+        else                  paceText.setTextColor(Color.BLACK);
     }
 
     //calculates pace value
