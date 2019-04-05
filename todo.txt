@@ -1,6 +1,6 @@
 UP NEXT
 ----
--design 'bruincard'
+-finish 'bruincard'
 
 
 FUNCTIONALITY
