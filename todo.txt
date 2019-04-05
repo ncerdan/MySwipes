@@ -14,6 +14,7 @@ FUNCTIONALITY
 
 UI
 ----
+-make UI show name/image on bruincard
 -positive pace has green arrow up, neg pace has red arrow down, 0 has yellow dash?
 -new ui with circular progress bar?
 -decorate settings activity?
