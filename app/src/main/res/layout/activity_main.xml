@@ -10,8 +10,8 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        android:background="@color/colorPrimary">
-    </android.support.constraint.ConstraintLayout>
+        android:background="@color/colorPrimary"
+        app:layout_constraintTop_toTopOf="parent"></android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
